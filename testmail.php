@@ -5,7 +5,7 @@ function sendIcalEvent($from_name, $from_address, $to_name, $to_address, $startT
 
     //Create Email Headers
     $mime_boundary = "----Meeting Booking----".MD5(TIME());
-
+ 
     $headers = "From: ".$from_name." <".$from_address.">\n";
     $headers .= "Reply-To: ".$from_name." <".$from_address.">\n";
     $headers .= "MIME-Version: 1.0\n";
