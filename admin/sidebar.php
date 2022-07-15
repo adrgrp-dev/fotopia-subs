@@ -184,6 +184,9 @@ $pcadmin=mysqli_fetch_array($pcadmin1);
 <?php
 }
 ?></a></td></tr>
+
+<tr style="line-height:8px;"><td>&nbsp;</td></tr>
+<tr><td id="subscription" style="padding:5px;background:#FFF;color:#000;font-weight:bold;width:150px;border-radius:5px 5px 5px 5px;"><a href="subscription_plan.php"><i class="fa fa-xs fa-play-circle-o"></i><span style="padding-left:15px;font-size:13px;">Subscription</span></a></td></tr>
 <tr><td>&nbsp;</td></tr>
 </table>
 
@@ -234,6 +237,9 @@ $pcadmin=mysqli_fetch_array($pcadmin1);
 
 <tr style="line-height:8px;"><td>&nbsp;</td></tr>
 <tr><td id="pagesMenu" style="padding:5px;background:#FFF;color:#000;font-weight:bold;width:150px;border-radius:5px 5px 5px 5px;font-size:15px;"><a href="pages.php"><i class="fa fa-xs fa-user"></i><span  adr_trans="label_pages" style="padding-left:15px;font-size:13px;">Pages</span></a></td></tr>
+
+<tr style="line-height:8px;"><td>&nbsp;</td></tr>
+<tr><td id="" style="padding:5px;background:#FFF;color:#000;font-weight:bold;width:150px;border-radius:5px 5px 5px 5px;font-size:15px;"><a href="subscription_approve.php"><i class="fa fa-xs fa-check"></i><span  adr_trans="" style="padding-left:15px;font-size:13px;">Subscribers</span></a></td></tr>
 <tr><td>&nbsp;</td></tr>
 </table>
 
