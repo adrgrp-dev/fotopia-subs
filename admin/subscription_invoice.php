@@ -113,7 +113,7 @@ thead > tr:last-child > th, th > span {
                     
                 </div>
                 <hr class="space s">
-         <a href="#" class="anima-button btn-sm btn adr-save"><i class="fa fa-arrow-right"></i>Proceed to payment</a>       
+         <a href="subs_paynow_summary.php" class="anima-button btn-sm btn adr-save"><i class="fa fa-arrow-right"></i>Proceed to payment</a>       
 
         </div>
 

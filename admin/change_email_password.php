@@ -333,6 +333,26 @@ function validate_email1(val)
 
  <br /></td><td><a href="#changePassword" class="lightbox link btn adr-save" data-lightbox-anima="show-scale" id="upass" style="font-size:12px;text-decoration:none;color:#000;height: 30px;"><span adr_trans="label_update" >Update</span></a><br /></td></tr>
 
+<?php 
+
+$res=mysqli_query($con,"select concat(au.first_name,' ',au.last_name) as name,a.subscription_name,p.duration,p.cost,sb.approved_on,sb.created_on,sb.expiry_date from subscription_packs as a JOIN plan_duration as p on a.id=p.subscription_cost_id join subscription_invoice as sb on sb.subscription_pack_id=a.id join admin_users as au on au.id=sb.pc_admin_id where p.id=2 ");
+
+                                   
+                                $res1=mysqli_fetch_array($res);
+
+if($user1['type_of_user']=="PCAdmin")
+{
+?>
+<tr><td style="padding-left:20px;"><h5 id="label_first_name" adr_trans="">Subscription plan</h5></td><td><?php echo $res1['subscription_name']; ?><br /></td></tr>
+
+<tr><td style="padding-left:20px;"><h5 id="label_first_name" adr_trans="">Subscription status</h5></td><td><?php if($res1['approved_on']==1){ echo "Active";} else{echo "Inactive";}; ?><br /></td></tr>
+
+<tr><td style="padding-left:20px;"><h5 id="label_first_name" adr_trans="">Subscription expiry</h5></td><td><?php echo $res1['expiry_date']; ?><br /></td></tr>
+
+<?php
+}
+?>
+
 </table>
 
 
