@@ -171,17 +171,14 @@ header("location:subcsrOrder_list1.php?app=1");
 
        <?php include "sidebar.php";  ?>
 
+       
+
                 </div>
                 <div class="col-md-10" style="padding-left:30px;margin-top: 23px;">
                 <div class="tab-box" data-tab-anima="show-scale">
                  
                   <p align="right" style="position: absolute;right: 15px;" >
-                      <?php
-                       $csr_id=$_SESSION['admin_loggedin_id'];
-                        $get_pcadmin_query=mysqli_query($con,"select * from admin_users where id=$csr_id");
-                        $get_pcadmin=mysqli_fetch_array($get_pcadmin_query);
-                        $pc_admin_id=$get_pcadmin['pc_admin_id'];
-                      ?>
+                      
                         </p>
                 <ul class="nav nav-tabs">
                 <li  id="click1" class="active"><a href="#tab1" ><span>Monthly Plans</span></a></li>
@@ -191,88 +188,63 @@ header("location:subcsrOrder_list1.php?app=1");
                 <div class="panel active" id="tab1">
 
 <div class="row">
+    <?php
+                       
+                        $get_sub_query=mysqli_query($con,"SELECT * FROM `subscription_packs` WHERE  status=1 and duration_in_days=30");
+                        while($get_sub=mysqli_fetch_array($get_sub_query))
+                        {
+                        
+                      ?>
                         <div class="col-md-3">
                             <div class="list-group pricing-table">
                                 <div class="list-group-item pricing-price">
-                                    $20/ <span>MONTH</span>
+                                    <?php echo "$ ".$get_sub['cost']; ?>/ <span>MONTH</span>
                                 </div>
                                 <div class="list-group-item pricing-name">
-                                    <h3>BASIC</h3>
+                                    <h3><?php echo $get_sub['plan_name']; ?></h3>
                                 </div>
-                                <div class="list-group-item">125GB Storage</div>
-                                <div class="list-group-item">5 Photographers</div>
-                                <div class="list-group-item">2 Csr</div>
+                                <div class="list-group-item"><?php echo $get_sub['storage']; ?></div>
+                                <div class="list-group-item"><?php echo $get_sub['photographer_limit']." "."Photographer"; ?></div>
+                                <div class="list-group-item"><?php echo $get_sub['csr_limit']." "."Csr"; ?></div>
                                 
                                 
                                 
                                 
                                 <div class="list-group-item">
-                                    <a class="btn btn-sm btn-default" href="subscription_invoice.php"> Order now </a>
+                                    <a class="btn btn-sm btn-default" href="subscription_invoice.php?sub_id=<?php echo $get_sub['id']; ?>";> Order now </a>
                                 </div>
                             </div>
                         </div>
+                    <?php }?>
+                     <?php
+                       
+                        $get_sub_tril_query=mysqli_query($con,"SELECT * FROM `subscription_packs` WHERE status=1 and duration_in_days=15");
+                        while($get_sub=mysqli_fetch_array($get_sub_tril_query))
+                        {
                         
-<div class="col-md-3">
-                            <div class="list-group pricing-table">
-                                <div class="list-group-item pricing-price">
-                                    $85/ <span>MONTH</span>
-                                </div>
-                                <div class="list-group-item pricing-name">
-                                    <h3>STANDARD</h3>
-                                </div>
-                                <div class="list-group-item">250GB Storage 
-</div>
-                                <div class="list-group-item">10 Photographers</div>
-                                <div class="list-group-item">4 Csr</div>
-                                
-                                
-                                
-                                
-                                <div class="list-group-item">
-                                    <a class="btn btn-sm btn-default" href="subscription_invoice.php"> Order now </a>
-                                </div>
-                            </div>
-                        </div>
+                      ?>
                         
-                        <div class="col-md-3">
+   <div class="col-md-3">
                             <div class="list-group pricing-table">
                                 <div class="list-group-item pricing-price">
-                                    $200/ <span>MONTH</span>
+                                    <?php echo "$ ".$get_sub['cost']; ?> / <span>MONTH</span>
                                 </div>
                                 <div class="list-group-item pricing-name">
-                                    <h3>PREMIUM</h3>
+                                    <h3><?php echo $get_sub['plan_name']; ?></h3>
                                 </div>
-                                <div class="list-group-item">500GB Storage</div>
-                                <div class="list-group-item">15 photographers</div>
-                                <div class="list-group-item">8 Csr</div>
+                                <div class="list-group-item"><?php echo $get_sub['storage']; ?></div>
+                                <div class="list-group-item"><?php echo $get_sub['photographer_limit']." "."Photographer"; ?></div>
+                                <div class="list-group-item"><?php echo $get_sub['csr_limit']." "."Csr"; ?></div>
                                 
                                 
                                 
                                 
                                 <div class="list-group-item">
-                                    <a class="btn btn-sm btn-default" href="subscription_invoice.php"> Order now </a>
-                                </div>
-                            </div>
-                        </div><div class="col-md-3">
-                            <div class="list-group pricing-table">
-                                <div class="list-group-item pricing-price">
-                                    $0/ <span>MONTH</span>
-                                </div>
-                                <div class="list-group-item pricing-name">
-                                    <h3>TRIAL</h3>
-                                </div>
-                                <div class="list-group-item">5GB Storage</div>
-                                <div class="list-group-item"><i class="fa fa-times-circle" style="line-height:23px;"></i></div>
-                                <div class="list-group-item"><i class="fa fa-times-circle" style="line-height:23px;"></i></div>
-                                
-                                
-                                
-                                
-                                <div class="list-group-item">
-                                    <a class="btn btn-sm btn-default" href="subscription_invoice.php"> Order now </a>
+                                    <a class="btn btn-sm btn-default" href="subscription_invoice.php?<?php echo $get_sub['id']; ?>";> Order now </a>
                                 </div>
                             </div>
                         </div>
+                    <?php } ?>
                     </div>
 
                 </div>
@@ -281,71 +253,36 @@ header("location:subcsrOrder_list1.php?app=1");
 
                 
 <div class="row">
+                          <?php
+                       
+                        $get_sub_query1=mysqli_query($con,"SELECT * FROM `subscription_packs` WHERE  status=1 and duration_in_days=365");
+                        while($get_sub1=mysqli_fetch_array($get_sub_query1))
+                        {
+                        
+                      ?>
                         <div class="col-md-4">
                             <div class="list-group pricing-table">
                                 <div class="list-group-item pricing-price">
-                                    $180/ <span>YEAR</span>
+                                    <?php echo "$ ".$get_sub1['cost']; ?>/ <span>ANNUAL</span>
                                 </div>
                                 <div class="list-group-item pricing-name">
-                                    <h3>BASIC</h3>
+                                    <h3><?php echo $get_sub1['plan_name']; ?></h3>
                                 </div>
-                                <div class="list-group-item">1250GB Storage</div>
-                                <div class="list-group-item">5 Photographers</div>
-                                <div class="list-group-item">2 Csr</div>
+                                <div class="list-group-item"><?php echo $get_sub1['storage']; ?></div>
+                                <div class="list-group-item"><?php echo $get_sub1['photographer_limit']." "."Photographer"; ?></div>
+                                <div class="list-group-item"><?php echo $get_sub1['csr_limit']." "."Csr"; ?></div>
                                 
                                 
                                 
                                 
                                 <div class="list-group-item">
-                                    <a class="btn btn-sm btn-default" href="subscription_invoice.php"> Order now </a>
+                                    <a class="btn btn-sm btn-default" href="subscription_invoice.php?sub_id=<?php echo $get_sub1['id']; ?>" > Order now </a>
                                 </div>
                             </div>
                         </div>
+                    <?php }?>
                         
-<div class="col-md-4">
-                            <div class="list-group pricing-table">
-                                <div class="list-group-item pricing-price">
-                                    $800/ <span>YEAR</span>
-                                </div>
-                                <div class="list-group-item pricing-name">
-                                    <h3>STANDARD</h3>
-                                </div>
-                                <div class="list-group-item">2500GB Storage 
-</div>
-                                <div class="list-group-item">10 Photographers</div>
-                                <div class="list-group-item">4 Csr</div>
-                                
-                                
-                                
-                                
-                                <div class="list-group-item">
-                                    <a class="btn btn-sm btn-default" href="subscription_invoice.php"> Order now </a>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="col-md-4">
-                            <div class="list-group pricing-table">
-                                <div class="list-group-item pricing-price">
-                                    $1800/ <span>YEAR</span>
-                                </div>
-                                <div class="list-group-item pricing-name">
-                                    <h3>PREMIUM</h3>
-                                </div>
-                                <div class="list-group-item">5000GB Storage</div>
-                                <div class="list-group-item">15 photographers</div>
-                                <div class="list-group-item">8 Csr</div>
-                                
-                                
-                                
-                                
-                                <div class="list-group-item">
-                                    <a class="btn btn-sm btn-default" href="subscription_invoice.php"> Order now </a>
-                                </div>
-                            </div>
-                        </div><div class="col-md-3">
-                          
-                        </div>
+
                     </div>
                                             </div>
 
