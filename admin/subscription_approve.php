@@ -6,6 +6,13 @@ include "connection1.php";
 
 $loggedin_id=$_SESSION['admin_loggedin_id'];
 
+if (isset($_REQUEST['approve'])) {
+
+$cp_id = $_REQUEST['id'];
+
+mysqli_query($con,"update customer_subscription_package set status='approved' where id=$cp_id");
+
+}
 
 ?>
 <style>
@@ -186,8 +193,8 @@ header("location:subcsrOrder_list1.php?app=1");
                       ?>
                         </p>
                 <ul class="nav nav-tabs">
-                <li  id="click1" class="active"><a href="#tab1" ><span>Subscription users</span></a></li>
-                <li id="click2"><a href="#tab2" ><span>Trial users</span></a></li>
+                <li  id="click1" class="active"><a href="#tab1" ><span>Subscription pending users</span></a></li>
+                <li id="click2"><a href="#tab2" ><span>Subscription approved users</span></a></li>
                 </ul>
 
 
@@ -271,7 +278,7 @@ header("location:subcsrOrder_list1.php?app=1");
                                     {
                                         $_SESSION["page"]=1;
                                     }
-                                    $q1="select count(*) as total from subscription_packs as a JOIN plan_duration as p on a.id=p.subscription_cost_id join subscription_invoice as sb on sb.subscription_pack_id=a.id join admin_users as au on au.id=sb.pc_admin_id where p.id=2";
+                                    $q1="select count(*) as total ,concat(am.first_name,' ',am.last_name) as name,cp.id,sp.plan_name,sp.duration_in_days,sp.cost,cp.status,cp.created_on from admin_users as am join customer_subscription_package as cp on cp.pc_admin_id=am.id JOIN subscription_packs AS sp on cp.subscription_pack_id=sp.id where cp.status='pending' ";
                                     $result=mysqli_query($con,$q1);
                                     $data=mysqli_fetch_assoc($result);
                                     $total_no=$data['total'];
@@ -296,10 +303,10 @@ header("location:subcsrOrder_list1.php?app=1");
                              $cnt=$start_no_users;
                                     // $q = "SELECT *FROM admin_users WHERE type_of_user='FotopiaAdmin' 
                              $limit="LIMIT " . $start_no_users . ',' . $number_of_pages;
-                                    $res=mysqli_query($con,"select concat(au.first_name,' ',au.last_name) as name,a.subscription_name,p.duration,p.cost,sb.approved_on,sb.created_on from subscription_packs as a JOIN plan_duration as p on a.id=p.subscription_cost_id join subscription_invoice as sb on sb.subscription_pack_id=a.id join admin_users as au on au.id=sb.pc_admin_id where p.id=2 ".$limit);
+                                    $res=mysqli_query($con,"select concat(am.first_name,' ',am.last_name) as name,cp.id,sp.plan_name,sp.duration_in_days,sp.cost,cp.status,cp.created_on from admin_users as am join customer_subscription_package as cp on cp.pc_admin_id=am.id JOIN subscription_packs AS sp on cp.subscription_pack_id=sp.id where cp.status='pending' ".$limit);
 
                                    
-                                    while($res1=mysqli_fetch_array($res))
+                                    while(@$res1=mysqli_fetch_array($res))
                                     {
                 $cnt++;
                 //-----------------------------------pagination end---------------------------------------------
@@ -307,13 +314,13 @@ header("location:subcsrOrder_list1.php?app=1");
                 <tr data-row-id="0" class="listPageTR">
                 <td class="text-left" style=""><?php if($cnt<0){ echo "0";}else{ echo $cnt;} ?></td>
                 <td class="text-left" style=""><?php echo $res1['name']; ?></td>
-                <td class="text-left" style=""><?php echo $res1['subscription_name']; ?></td>
-                <td class="text-left" style=""><?php echo $res1['duration'].' Days'; ?></td>
+                <td class="text-left" style=""><?php echo $res1['plan_name']; ?></td>
+                <td class="text-left" style=""><?php echo $res1['duration_in_days'].' Days'; ?></td>
                 <td class="text-left" style=""><?php echo $res1['cost']; ?></td>
-                <td class="text-left" style=""><?php  if($res1['approved_on']==0){ echo "Not approved";}else{echo "Approved";} ?></td>
+                <td class="text-left" style=""><?php echo $res1['status'];  ?></td>
 
                 <td class="text-left" style=""><?php echo $res1['created_on']; ?></td>
-                <td class="text-left" style=""><a target="" href="#" class="btn btn-sm adr-save">Approve
+                <td class="text-left" style=""><a target="" href="subscription_approve.php?id=<?php echo $res1['id'];?>&approve=1" class="btn btn-sm adr-save">Approve
                 </a></td>
                 </tr>
                 <tr><td class="listPageTRGap">&nbsp;</td></tr>
@@ -367,11 +374,11 @@ header("location:subcsrOrder_list1.php?app=1");
                                 Subscribed on
 
                         </span>
-                        <span class="icon fa "></span></th><th data-column-id="link" class="text-left" style=""><span class="text">
+                        <!-- <span class="icon fa "></span></th><th data-column-id="link" class="text-left" style=""><span class="text">
 
                                 Approve
 
-                        </span>
+                        </span> -->
 
 
 
@@ -396,7 +403,7 @@ header("location:subcsrOrder_list1.php?app=1");
                                     {
                                         $_SESSION["page"]=1;
                                     }
-                                    $q1="select count(*) as total from subscription_packs as a JOIN plan_duration as p on a.id=p.subscription_cost_id join subscription_invoice as sb on sb.subscription_pack_id=a.id join admin_users as au on au.id=sb.pc_admin_id where p.id=3";
+                                    $q1="select count(*) as total ,concat(am.first_name,' ',am.last_name) as name,cp.id,sp.plan_name,sp.duration_in_days,sp.cost,cp.status,cp.created_on from admin_users as am join customer_subscription_package as cp on cp.pc_admin_id=am.id JOIN subscription_packs AS sp on cp.subscription_pack_id=sp.id where cp.status='approved' ";
                                     $result=mysqli_query($con,$q1);
                                     $data=mysqli_fetch_assoc($result);
                                     $total_no=$data['total'];
@@ -421,10 +428,10 @@ header("location:subcsrOrder_list1.php?app=1");
                              $cnt=$start_no_users;
                                     // $q = "SELECT *FROM admin_users WHERE type_of_user='FotopiaAdmin' 
                              $limit="LIMIT " . $start_no_users . ',' . $number_of_pages;
-                                    $res=mysqli_query($con,"select concat(au.first_name,' ',au.last_name) as name,a.subscription_name,p.duration,p.cost,sb.approved_on,sb.created_on from subscription_packs as a JOIN plan_duration as p on a.id=p.subscription_cost_id join subscription_invoice as sb on sb.subscription_pack_id=a.id join admin_users as au on au.id=sb.pc_admin_id where p.id=3 ".$limit);
+                                    $res=mysqli_query($con,"select concat(am.first_name,' ',am.last_name) as name,cp.id,sp.plan_name,sp.duration_in_days,sp.cost,cp.status,cp.created_on from admin_users as am join customer_subscription_package as cp on cp.pc_admin_id=am.id JOIN subscription_packs AS sp on cp.subscription_pack_id=sp.id where cp.status='approved' ".$limit);
 
                                    
-                                    while($res1=mysqli_fetch_array($res))
+                                    while(@$res1=mysqli_fetch_array($res))
                                     {
                 $cnt++;
                 //-----------------------------------pagination end---------------------------------------------
@@ -432,12 +439,11 @@ header("location:subcsrOrder_list1.php?app=1");
                 <tr data-row-id="0" class="listPageTR">
                 <td class="text-left" style=""><?php if($cnt<0){ echo "0";}else{ echo $cnt;} ?></td>
                 <td class="text-left" style=""><?php echo $res1['name']; ?></td>
-                <td class="text-left" style=""><?php echo $res1['subscription_name']; ?></td>
-                <td class="text-left" style=""><?php  if($res1['approved_on']==0){ echo "Not approved";}else{echo "Approved";} ?></td>
+                <td class="text-left" style=""><?php echo $res1['plan_name']; ?></td>
+                <td class="text-left" style=""><?php echo $res1['status']; ?></td>
 
                 <td class="text-left" style=""><?php echo $res1['created_on']; ?></td>
-                <td class="text-left" style=""><a target="" href="#" class="btn btn-sm adr-save">Approve
-                </a></td>
+                <!-- <td class="text-left" style="">Approved</td> -->
                 </tr>
                 <tr><td class="listPageTRGap">&nbsp;</td></tr>
                 <?php } ?>

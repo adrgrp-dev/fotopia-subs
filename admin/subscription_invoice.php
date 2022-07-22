@@ -30,7 +30,7 @@ function getName($n) {
 
 if (isset($_REQUEST['proceed'])) { 
 
-mysqli_query($con,"INSERT INTO `customer_subscription_package`(`subscription_pack_id`, `pc_admin_id`, `payment_terms`) VALUES ('$subs_id','$loggedin_id','1')");
+mysqli_query($con,"INSERT INTO `customer_subscription_package`(`subscription_pack_id`, `pc_admin_id`, `payment_terms`,`status`) VALUES ('$subs_id','$loggedin_id','1','pending')");
 $inserted_id=mysqli_insert_id($con);
 mysqli_query($con,"INSERT INTO `customer_subscription_payment`(`pc_admin_id`, `subscription_pack_id`, `customer_subscription_pack_id`, `mode_of_payment`, `fotopia_payment_reference_no`) VALUES ('$loggedin_id','$subs_id','$inserted_id','Manual','$fotopia_payment_reference_no')");
 
