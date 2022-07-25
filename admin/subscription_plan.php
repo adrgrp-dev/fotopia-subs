@@ -203,7 +203,7 @@ header("location:subcsrOrder_list1.php?app=1");
                                 <div class="list-group-item pricing-name">
                                     <h3><?php echo $get_sub['plan_name']; ?></h3>
                                 </div>
-                                <div class="list-group-item"><?php echo $get_sub['storage']; ?></div>
+                                <div class="list-group-item"><?php echo $get_sub['storage'].' GB Storage'; ?></div>
                                 <div class="list-group-item"><?php echo $get_sub['photographer_limit']." "."Photographer"; ?></div>
                                 <div class="list-group-item"><?php echo $get_sub['csr_limit']." "."Csr"; ?></div>
                                 
@@ -232,7 +232,7 @@ header("location:subcsrOrder_list1.php?app=1");
                                 <div class="list-group-item pricing-name">
                                     <h3><?php echo $get_sub['plan_name']; ?></h3>
                                 </div>
-                                <div class="list-group-item"><?php echo $get_sub['storage']; ?></div>
+                                <div class="list-group-item"><?php echo $get_sub['storage'].' GB Storage'; ?></div>
                                 <div class="list-group-item"><?php echo $get_sub['photographer_limit']." "."Photographer"; ?></div>
                                 <div class="list-group-item"><?php echo $get_sub['csr_limit']." "."Csr"; ?></div>
                                 
@@ -268,7 +268,7 @@ header("location:subcsrOrder_list1.php?app=1");
                                 <div class="list-group-item pricing-name">
                                     <h3><?php echo $get_sub1['plan_name']; ?></h3>
                                 </div>
-                                <div class="list-group-item"><?php echo $get_sub1['storage']; ?></div>
+                                <div class="list-group-item"><?php echo $get_sub1['storage'].' GB Storage'; ?></div>
                                 <div class="list-group-item"><?php echo $get_sub1['photographer_limit']." "."Photographer"; ?></div>
                                 <div class="list-group-item"><?php echo $get_sub1['csr_limit']." "."Csr"; ?></div>
                                 
